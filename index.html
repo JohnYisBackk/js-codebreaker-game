@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Codebreaker PRO - Crack the secret 4-digit code in this interactive logic puzzle game."
+    />
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- LUCIDE ICONS -->
+    <script
+      src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"
+      defer
+    ></script>
+    <script src="script.js" defer></script>
+    <title>Codebreaker Game</title>
+  </head>
+  <body>
+    <!-- ====================================================== -->
+    <!-- HEADER -->
+    <!-- ====================================================== -->
+
+    <header class="header">
+      <a href="#" class="logo">
+        <i data-lucide="lock-keyhole"></i>
+
+        <div class="logo-content">
+          <h1>Codebreaker <span>PRO</span></h1>
+          <p>Crack the secret 4-digit code</p>
+        </div>
+      </a>
+
+      <div class="header-stats">
+        <div class="header-stat">
+          <i data-lucide="zap" class="blue"></i>
+
+          <div>
+            <p>Attempts Left</p>
+            <span id="attemptsLeftValue" class="blue">10/10</span>
+          </div>
+        </div>
+
+        <div class="header-stat">
+          <i data-lucide="flame" class="red"></i>
+
+          <div>
+            <p>Current Streak</p>
+            <span id="currentStreakValue" class="red">0</span>
+          </div>
+        </div>
+
+        <div class="header-stat">
+          <i data-lucide="trophy" class="yellow"></i>
+
+          <div>
+            <p>Best Score</p>
+            <span id="bestScoreValue">5 attempts</span>
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="settings-button"
+        id="settingsBtn"
+        type="button"
+        aria-label="Settings"
+      >
+        <i data-lucide="settings"></i>
+      </button>
+    </header>
+
+    <!-- ====================================================== -->
+    <!-- MAIN -->
+    <!-- ====================================================== -->
+
+    <main class="main">
+      <!-- ====================================================== -->
+      <!-- CODEBREAKER GAME -->
+      <!-- ====================================================== -->
+
+      <section class="game-section">
+        <div class="game-header">
+          <div class="game-title">
+            <i data-lucide="timer"></i>
+
+            <div>
+              <h2>The Secret Code</h2>
+              <p>A 4-digit code is hidden. Can you crack it?</p>
+            </div>
+          </div>
+
+          <div class="difficulty-select">
+            <i data-lucide="chart-no-axes-column-increasing"></i>
+
+            <select id="difficultySelect" aria-label="Select difficulty">
+              <option value="classic">Classic</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+
+            <i data-lucide="chevron-down"></i>
+          </div>
+        </div>
+
+        <div class="secret-code-section">
+          <div class="secret-code-grid" id="secretCodeGrid">
+            <div class="secret-code-digit">?</div>
+            <div class="secret-code-digit">?</div>
+            <div class="secret-code-digit">?</div>
+            <div class="secret-code-digit">?</div>
+          </div>
+
+          <p class="secret-code-hint">
+            The secret code contains 4 unique digits.
+          </p>
+        </div>
+
+        <div class="guess-section">
+          <div class="guess-header">
+            <i data-lucide="pencil"></i>
+
+            <div>
+              <h2>Enter Your Guess</h2>
+              <p>Type using your keyboard or click the number pad.</p>
+            </div>
+          </div>
+
+          <div class="guess-content">
+            <div class="guess-input-grid" id="guessInputGrid">
+              <input
+                type="text"
+                class="guess-digit"
+                maxlength="1"
+                inputmode="numeric"
+                aria-label="First digit"
+                autocomplete="off"
+              />
+
+              <input
+                type="text"
+                class="guess-digit"
+                maxlength="1"
+                inputmode="numeric"
+                aria-label="Second digit"
+                autocomplete="off"
+              />
+
+              <input
+                type="text"
+                class="guess-digit"
+                maxlength="1"
+                inputmode="numeric"
+                aria-label="Third digit"
+                autocomplete="off"
+              />
+
+              <input
+                type="text"
+                class="guess-digit"
+                maxlength="1"
+                inputmode="numeric"
+                aria-label="Fourth digit"
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="feedback-legend">
+              <div class="feedback-item correct-position green">
+                <span class="feedback-dot"></span>
+
+                <div>
+                  <strong>Correct Position</strong>
+                  <p>Right digit, right position</p>
+                </div>
+              </div>
+
+              <div class="feedback-item correct-digit purple">
+                <span class="feedback-dot"></span>
+
+                <div>
+                  <strong>Correct Digit</strong>
+                  <p>Right digit, wrong position</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-actions">
+            <button type="button" class="submit-btn" id="submitGuessBtn">
+              <i data-lucide="send"></i>
+              <span>Submit Guess</span>
+            </button>
+
+            <button type="button" class="clear-btn" id="clearGuessBtn">
+              <i data-lucide="rotate-ccw"></i>
+              <span>Clear</span>
+            </button>
+
+            <button type="button" class="new-game-btn" id="newGameBtn">
+              <i data-lucide="dices"></i>
+              <span>New Game</span>
+            </button>
+          </div>
+
+          <p
+            class="game-message"
+            id="gameMessage"
+            role="status"
+            aria-live="polite"
+          >
+            Enter your first guess to start cracking the code.
+          </p>
+        </div>
+
+        <div class="keypad-section">
+          <div class="keypad-grid">
+            <button type="button" class="keypad-btn" data-digit="1">1</button>
+            <button type="button" class="keypad-btn" data-digit="2">2</button>
+            <button type="button" class="keypad-btn" data-digit="3">3</button>
+            <button type="button" class="keypad-btn" data-digit="4">4</button>
+            <button type="button" class="keypad-btn" data-digit="5">5</button>
+            <button type="button" class="keypad-btn" data-digit="6">6</button>
+            <button type="button" class="keypad-btn" data-digit="7">7</button>
+            <button type="button" class="keypad-btn" data-digit="8">8</button>
+            <button type="button" class="keypad-btn" data-digit="9">9</button>
+            <button type="button" class="keypad-btn" data-digit="0">0</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================== -->
+      <!-- GUESS HISTORY -->
+      <!-- ====================================================== -->
+
+      <aside class="dashboard-sidebar">
+        <section class="guess-history-section">
+          <div class="history-header">
+            <div class="history-title">
+              <i data-lucide="history"></i>
+
+              <div>
+                <h2>Guess History</h2>
+              </div>
+            </div>
+
+            <span class="history-count" id="historyCount">0 guesses</span>
+          </div>
+
+          <div class="history-table">
+            <div class="history-table-header">
+              <span>#</span>
+              <span>Guess</span>
+              <span>Correct Pos</span>
+              <span>Correct Digit</span>
+              <span>Result</span>
+            </div>
+
+            <div class="history-list" id="historyList">
+              <div class="history-empty">
+                <i data-lucide="list-checks"></i>
+                <p>No guesses yet</p>
+                <span>Your attempts will appear here.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================== -->
+        <!-- GAME STATS -->
+        <!-- ====================================================== -->
+
+        <section class="game-stats-section">
+          <div class="game-stats-header">
+            <i data-lucide="chart-no-axes-column"></i>
+            <h2>Game Stats</h2>
+          </div>
+
+          <div class="game-boxes">
+            <div class="game-box">
+              <i data-lucide="zap"></i>
+
+              <div>
+                <p>Attempts Left</p>
+                <span id="gameAttemptsLeftValue">10/10</span>
+              </div>
+            </div>
+
+            <div class="game-box">
+              <i data-lucide="trophy"></i>
+
+              <div>
+                <p>Best Score</p>
+                <span id="gameBestScoreValue">5 attempts</span>
+              </div>
+            </div>
+
+            <div class="game-box">
+              <i data-lucide="chart-no-axes-column-increasing"></i>
+
+              <div>
+                <p>Games Won</p>
+                <span id="gamesWonValue">12</span>
+              </div>
+            </div>
+
+            <div class="game-box">
+              <i data-lucide="target"></i>
+
+              <div>
+                <p>Current Status</p>
+                <span id="currentStatusValue">In Progress</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </body>
+</html>
